@@ -48,7 +48,7 @@
     
     <title>
         
-            Archives: 2018/8 | 
+            Glide 源码分析（一） | 
         
         Allen&#39;s blog
     </title>
@@ -220,7 +220,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Allen&#39;s blog">
-    <meta name="msapplication-starturl" content="http://yoursite.com/archives/2018/08/">
+    <meta name="msapplication-starturl" content="http://yoursite.com/2018/08/31/Glide 源码分析（一）/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Allen&#39;s blog">
@@ -235,13 +235,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://yoursite.com/archives/2018/08/">
+    <meta property="og:url" content="http://yoursite.com/2018/08/31/Glide 源码分析（一）/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Archives: 2018/8 | Allen&#39;s blog">
+    <meta property="og:title" content="Glide 源码分析（一） | Allen&#39;s blog">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="做好每一件小事！">
     
 
+    
+        <meta property="article:published_time" content="Fri Aug 31 2018 10:03:26 GMT+0800">
+        <meta property="article:modified_time" content="Wed Oct 10 2018 10:29:44 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -249,7 +252,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://yoursite.com/archives/2018/08/index.html" />
+        <link rel="canonical" href="http://yoursite.com/2018/08/31/Glide 源码分析（一）/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -284,149 +287,245 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#写在前面"><span class="post-toc-number">1.</span> <span class="post-toc-text">写在前面</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#从如何使用开始"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">从如何使用开始</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-Glide-get-context"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">1. Glide.get(context)</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#RequestManagerRetriever"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">RequestManagerRetriever</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#context"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">context</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#engine"><span class="post-toc-number">1.1.4.</span> <span class="post-toc-text">engine</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#memoryCache"><span class="post-toc-number">1.1.5.</span> <span class="post-toc-text">memoryCache</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#bitmapPool"><span class="post-toc-number">1.1.6.</span> <span class="post-toc-text">bitmapPool</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#connectivityMonitorFactory"><span class="post-toc-number">1.1.7.</span> <span class="post-toc-text">connectivityMonitorFactory</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#defaultRequestOptions"><span class="post-toc-number">1.1.8.</span> <span class="post-toc-text">defaultRequestOptions</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#defaultTransitionOptions"><span class="post-toc-number">1.1.9.</span> <span class="post-toc-text">defaultTransitionOptions</span></a></li></ol></li></ol></li></ol>
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/08/31/Glide 源码分析（一）/">Glide 源码分析（一）</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            写在前面
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/08/31/Glide 源码分析（一）/" target="_self">Read more</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="陈少罡's avatar">
-            </div>
-            <div>
-                <strong>陈少罡</strong>
-                <span>Aug 31, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/08/31/Kotlin中的委托代理/">Kotlin 中的委托代理</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            代理模式
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/08/31/Kotlin中的委托代理/" target="_self">Read more</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="陈少罡's avatar">
-            </div>
-            <div>
-                <strong>陈少罡</strong>
-                <span>Aug 31, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                Glide 源码分析（一）
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>陈少罡</strong>
+        <span>Aug 31, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+    <!-- Leancloud Views -->
+        <a class="post_share-link" href="#">
+            <li class="mdl-menu__item">
+                <span id="/2018/08/31/Glide 源码分析（一）/" class="leancloud-views_num" data-flag-title="Glide 源码分析（一）">
+     &nbsp;Views
+</span>
+
+            </li>
+        </a>
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Glide 源码分析（一）&url=http://yoursite.com/2018/08/31/Glide 源码分析（一）/index.html&pic=http://yoursite.com/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                Share to Weibo
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Glide 源码分析（一）&url=http://yoursite.com/2018/08/31/Glide 源码分析（一）/index.html&via=陈少罡" target="_blank">
+            <li class="mdl-menu__item">
+                Share to Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/08/31/Glide 源码分析（一）/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                Share to Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://yoursite.com/2018/08/31/Glide 源码分析（一）/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                Share to Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
     
 </div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>Glide 是一款强大的 Android 图片加载框架，其链式，如丝般顺滑的调用方式，获得了很多开发者的信赖，在开发 Android 实际项目中应该有很多人用过它，其缓存，懒加载，图片压缩等等功能真的很强大。一款强大的开源图片处理框架，其背后必定超级复杂。作为一名开发者，我们不仅仅要知其然，还要知其所以然，所以从这篇文章开始，准备一系列文章分析一下 Glide 源码，去学习源码中优秀的设计模式和思想。废话不多说，开始进入分析。</p>
+<h4 id="从如何使用开始"><a href="#从如何使用开始" class="headerlink" title="从如何使用开始"></a>从如何使用开始</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Glide.with(context)</span><br><span class="line">     .load(url)</span><br><span class="line">     .transition(DrawableTransitionOptions().crossFade())</span><br><span class="line">     .into(iv)</span><br></pre></td></tr></table></figure>
+<p>以上是 Glide 加载图片的调用，很简单，获取上下文，加载 url，into 在指定的图片控件。写的很语义化，那我们先从 with 开始：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public static RequestManager with(@NonNull Activity activity) &#123;</span><br><span class="line">  return getRetriever(activity).get(activity);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static RequestManager with(@NonNull FragmentActivity activity) &#123;</span><br><span class="line">  return getRetriever(activity).get(activity);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static RequestManager with(@NonNull android.app.Fragment fragment) &#123;</span><br><span class="line">  return getRetriever(fragment.getActivity()).get(fragment);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.......</span><br></pre></td></tr></table></figure></p>
+<p>with 是初始化的方法，返回一个 RequestManager 对象，该对象是由 getRetriever(fragment.getActivity()).get(fragment) 方法返回，这个方法显示检查了一下 context 不为空，然后调用 Glide.get(context).getRequestManagerRetriever() 我们接着往下看这个 Glide.get(context).getRequestManagerRetriever 究竟干了啥</p>
+<h5 id="1-Glide-get-context"><a href="#1-Glide-get-context" class="headerlink" title="1. Glide.get(context)"></a>1. Glide.get(context)</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public static Glide get(@NonNull Context context) &#123;</span><br><span class="line">    if (glide == null) &#123;</span><br><span class="line">      synchronized (Glide.class) &#123;</span><br><span class="line">        if (glide == null) &#123;</span><br><span class="line">          checkAndInitializeGlide(context);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return glide;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>经典的单例生成方式，生成 Glide 对象，并初始化对象，跟进方法，initializeGlide(context, new GlideBuilder())，这个方法很重要，干了很多事：</p>
+<ul>
+<li>获取应用中带 GlideModule 注解, 主要用到了反射去获取。</li>
+<li>把 manifestModules 和 annotationGeneratedModule 里面配置的信息放在 builder 里面 替换 glide 默认组件</li>
+<li>Glide glide = builder.build(applicationContext) 主要是各种初始化工作，分析一下初始化的代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">public Glide build(@NonNull Context context) &#123;</span><br><span class="line">  // 创建请求图片线程池</span><br><span class="line">  if (sourceExecutor == null) &#123;</span><br><span class="line">    sourceExecutor = GlideExecutor.newSourceExecutor();</span><br><span class="line">  &#125;</span><br><span class="line">  // 创建硬盘缓存线程池</span><br><span class="line">  if (diskCacheExecutor == null) &#123;</span><br><span class="line">    diskCacheExecutor = GlideExecutor.newDiskCacheExecutor();</span><br><span class="line">  &#125;</span><br><span class="line">  // 创建动画线程池</span><br><span class="line">  if (animationExecutor == null) &#123;</span><br><span class="line">    animationExecutor = GlideExecutor.newAnimationExecutor();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  if (memorySizeCalculator == null) &#123;</span><br><span class="line">    memorySizeCalculator = new MemorySizeCalculator.Builder(context).build();</span><br><span class="line">  &#125;</span><br><span class="line">  // </span><br><span class="line">  if (connectivityMonitorFactory == null) &#123;</span><br><span class="line">    connectivityMonitorFactory = new DefaultConnectivityMonitorFactory();</span><br><span class="line">  &#125;</span><br><span class="line">  // 创建图片线程池</span><br><span class="line">  if (bitmapPool == null) &#123;</span><br><span class="line">    int size = memorySizeCalculator.getBitmapPoolSize();</span><br><span class="line">    if (size &gt; 0) &#123;</span><br><span class="line">      bitmapPool = new LruBitmapPool(size);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      bitmapPool = new BitmapPoolAdapter();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  // 创建数组缓存池</span><br><span class="line">  if (arrayPool == null) &#123;</span><br><span class="line">    arrayPool = new LruArrayPool(memorySizeCalculator.getArrayPoolSizeInBytes());</span><br><span class="line">  &#125;</span><br><span class="line">  // 创建内存内存</span><br><span class="line">  if (memoryCache == null) &#123;</span><br><span class="line">    memoryCache = new LruResourceCache(memorySizeCalculator.getMemoryCacheSize());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  if (diskCacheFactory == null) &#123;</span><br><span class="line">    diskCacheFactory = new InternalCacheDiskCacheFactory(context);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  if (engine == null) &#123;</span><br><span class="line">    engine =</span><br><span class="line">        new Engine(</span><br><span class="line">            memoryCache,</span><br><span class="line">            diskCacheFactory,</span><br><span class="line">            diskCacheExecutor,</span><br><span class="line">            sourceExecutor,</span><br><span class="line">            GlideExecutor.newUnlimitedSourceExecutor(),</span><br><span class="line">            GlideExecutor.newAnimationExecutor(),</span><br><span class="line">            isActiveResourceRetentionAllowed);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  RequestManagerRetriever requestManagerRetriever =</span><br><span class="line">      new RequestManagerRetriever(requestManagerFactory);</span><br><span class="line">  // 创建 Glide 对象</span><br><span class="line">  return new Glide(</span><br><span class="line">      context,</span><br><span class="line">      engine,</span><br><span class="line">      memoryCache,</span><br><span class="line">      bitmapPool,</span><br><span class="line">      arrayPool,</span><br><span class="line">      requestManagerRetriever,</span><br><span class="line">      connectivityMonitorFactory,</span><br><span class="line">      logLevel,</span><br><span class="line">      defaultRequestOptions.lock(),</span><br><span class="line">      defaultTransitionOptions);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>解释一下参数的含义。</p>
+<h5 id="RequestManagerRetriever"><a href="#RequestManagerRetriever" class="headerlink" title="RequestManagerRetriever"></a>RequestManagerRetriever</h5><pre><code>RequestManagerRetriever 在官方的 api 是用这样的一句话来介绍的： A collection of static methods for creating new RequestManagers or retrieving existing ones from activities and fragment. 翻译成中文就是：创建请求管理的方法集合。至于里面有哪些方法这边就不做过多的介绍。
+</code></pre><h5 id="context"><a href="#context" class="headerlink" title="context"></a>context</h5><pre><code>这个不用多说，上线文
+</code></pre><h5 id="engine"><a href="#engine" class="headerlink" title="engine"></a>engine</h5><pre><code>任务和资源管理，主要包括线程池，内存缓存，硬盘缓存对象。
+</code></pre><h5 id="memoryCache"><a href="#memoryCache" class="headerlink" title="memoryCache"></a>memoryCache</h5><pre><code>内存缓存
+</code></pre><h5 id="bitmapPool"><a href="#bitmapPool" class="headerlink" title="bitmapPool"></a>bitmapPool</h5><pre><code>bitmap 内存缓存
+</code></pre><h5 id="connectivityMonitorFactory"><a href="#connectivityMonitorFactory" class="headerlink" title="connectivityMonitorFactory"></a>connectivityMonitorFactory</h5><pre><code>回调监听
+</code></pre><h5 id="defaultRequestOptions"><a href="#defaultRequestOptions" class="headerlink" title="defaultRequestOptions"></a>defaultRequestOptions</h5><pre><code>默认请求配置
+</code></pre><h5 id="defaultTransitionOptions"><a href="#defaultTransitionOptions" class="headerlink" title="defaultTransitionOptions"></a>defaultTransitionOptions</h5><pre><code>默认过渡效果
+</code></pre><p>  总结一下初始化工作主要有以下几点：</p>
+<ol>
+<li>初始化配置信息以及 glide 组件</li>
+<li>将 glide 和 fragment 的生命周期绑定在一起</li>
+</ol>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2018/08/31/Kotlin中的委托代理/" id="post_nav-older" class="next-content">
+            Older
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
